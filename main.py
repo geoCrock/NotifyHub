@@ -1,3 +1,4 @@
+import uvicorn
 from fastapi import FastAPI, HTTPException, Query, Depends
 from pydantic import BaseModel
 from datetime import datetime
@@ -54,5 +55,4 @@ async def update_client(client_id: int, updated_client: Client):
 # Аналогично реализовать методы для рассылок и сообщений
 
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run(app, host="127.0.0.1", port=8000)

@@ -1,10 +1,18 @@
+import asyncio
 import uvicorn
-from fastapi import FastAPI, HTTPException, Query, Depends
+from contextlib import asynccontextmanager
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from datetime import datetime
-from typing import List
+
+
+# @asynccontextmanager
+# async def lifespan(app: FastAPI):
+#     await process_active_campaigns()
+#     yield
 
 app = FastAPI()
+
 
 class Client(BaseModel):
     id: int
@@ -32,6 +40,32 @@ clients_db = []
 messages_db = []
 campaigns_db = []
 
+
+
+async def send_message(client_id: int, campaign_id: int):
+    print('start3')
+    # Логика отправки сообщения, может быть вызов внешнего сервиса
+    await asyncio.sleep(1)  # Имитация отправки сообщения
+    messages_db.append(Message(id=len(messages_db) + 1, created_at=datetime.now(), status="Sent", campaign_id=campaign_id, client_id=client_id))
+    print(f'Пришло сообщение: {messages_db[-1]}')
+
+
+async def process_campaign(campaign: Campaign):
+    print('start2')
+    # Логика обработки рассылки
+    current_time = datetime.now()
+    # if campaign.start_time <= current_time <= campaign.end_time:
+    clients_to_notify = [client for client in clients_db if all(client[key] == value for key, value in campaign.client_filter.items())]
+    for client in clients_to_notify:
+        await send_message(client.id, campaign.id)
+
+
+async def process_active_campaigns():
+    print('start')
+    for campaign in campaigns_db:
+        await process_campaign(campaign)
+
+
 @app.post("/clients/")
 async def create_client(client: Client):
     clients_db.append(client)
@@ -47,9 +81,16 @@ async def update_client(client_id: int, updated_client: Client):
     else:
         raise HTTPException(status_code=404, detail="Client not found")
 
+@app.delete("/clients/{client_id}")
+async def delete_client(client_id: int):
+    global clients_db
+    clients_db = [c for c in clients_db if c.id != client_id]
+    return {"message": "Client deleted successfully"}
+
 @app.post("/campaigns/")
 async def create_campaign(campaign: Campaign):
     campaigns_db.append(campaign)
+    await process_active_campaigns()
     return {"message": "Campaign created successfully"}
 
 @app.put("/campaigns/{campaign_id}")
@@ -62,17 +103,27 @@ async def update_campaign(campaign_id: int, updated_campaign: Campaign):
     else:
         raise HTTPException(status_code=404, detail="Campaign not found")
 
-@app.post("/messages/")
-async def create_message(message: Message):
-    messages_db.append(message)
-    return {"message": "Message created successfully"}
+@app.delete("/campaigns/{campaign_id}")
+async def delete_campaign(campaign_id: int):
+    global campaigns_db
+    campaigns_db = [c for c in campaigns_db if c.id != campaign_id]
+    return {"message": "Campaign deleted successfully"}
 
-@app.get("/messages/{campaign_id}")
-async def get_messages_for_campaign(campaign_id: int):
-    campaign_messages = [m.dict() for m in messages_db if m.campaign_id == campaign_id]
-    if not campaign_messages:
-        raise HTTPException(status_code=404, detail="No messages found for the campaign")
-    return campaign_messages
+@app.get("/campaigns/stats")
+async def get_campaigns_stats():
+    # Логика для получения общей статистики по рассылкам
+    return {"message": "Campaigns stats"}
+
+@app.get("/campaigns/{campaign_id}/stats")
+async def get_campaign_stats(campaign_id: int):
+    # Логика для получения детальной статистики по конкретной рассылке
+    return {"message": f"Campaign {campaign_id} stats"}
+
+# Метод для обработки активных рассылок и отправки сообщений клиентам
+def process_active_campaigns2():
+    # Логика обработки активных рассылок и отправки сообщений
+    pass
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="127.0.0.1", port=8000)

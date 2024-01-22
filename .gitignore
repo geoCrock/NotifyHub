@@ -1,2 +1,40 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+*.env
 .venv
-__pycache__
+env.bak/
+env1/
+env2/
+
+# Logs and databases
+*.log
+*.sqlite3
+
+# Local development settings
+local_settings.py
+
+# IDE specific files
+.idea/
+.vscode/
+
+# Compiled Python files
+*.pyc
+
+# Compiled C extension
+*.so
+
+# Dist directory
+dist/
+
+# Build directory
+build/
+
+# Egg-info directory
+*.egg-info/

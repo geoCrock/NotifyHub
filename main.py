@@ -3,12 +3,13 @@ import uvicorn
 # from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from dto import *
-from statistic import get_campaign_stats, get_campaigns_stats
-from send_messages import process_active_campaigns
+from statistic import get_newsletter_stats, get_newsletters_stats
+from send_messages import process_active_newsletters
+
 
 # @asynccontextmanager
 # async def lifespan(app: FastAPI):
-#     await process_active_campaigns()
+#     await process_active_newsletters()
 #     yield
 
 app = FastAPI()
@@ -40,41 +41,41 @@ async def delete_client(client_id: int):
     return {"message": "Client deleted successfully"}
 
 
-@app.post("/campaigns/")
-async def create_campaign(campaign: Campaign):
-    campaigns_db.append(campaign)
-    await process_active_campaigns()
-    return {"message": "Campaign created successfully"}
+@app.post("/newsletters/")
+async def create_newsletter(newsletter: Newsletter):
+    newsletters_db.append(newsletter)
+    await process_active_newsletters()
+    return {"message": "Newsletter created successfully"}
 
 
-@app.put("/campaigns/{campaign_id}")
-async def update_campaign(campaign_id: int, updated_campaign: Campaign):
-    for campaign in campaigns_db:
-        if campaign.id == campaign_id:
+@app.put("/newsletters/{newsletter_id}")
+async def update_newsletter(newsletter_id: int, updated_newsletter: Newsletter):
+    for newsletter in newsletters_db:
+        if newsletter.id == newsletter_id:
             # Обновляем атрибуты рассылки
-            campaign.start_time = updated_campaign.start_time
-            campaign.message_text = updated_campaign.message_text
-            campaign.client_filter = updated_campaign.client_filter
-            campaign.end_time = updated_campaign.end_time
-            return {"message": f"Campaign with id {campaign_id} updated successfully"}
-    raise HTTPException(status_code=404, detail=f"Campaign with id {campaign_id} not found")
+            newsletter.start_time = updated_newsletter.start_time
+            newsletter.message_text = updated_newsletter.message_text
+            newsletter.tag_filter = updated_newsletter.tag_filter
+            newsletter.end_time = updated_newsletter.end_time
+            return {"message": f"Newsletter with id {newsletter_id} updated successfully"}
+    raise HTTPException(status_code=404, detail=f"Newsletter with id {newsletter_id} not found")
 
 
-@app.delete("/campaigns/{campaign_id}")
-async def delete_campaign(campaign_id: int):
-    global campaigns_db
-    campaigns_db = [c for c in campaigns_db if c.id != campaign_id]
-    return {"message": "Campaign deleted successfully"}
+@app.delete("/newsletters/{newsletter_id}")
+async def delete_newsletter(newsletter_id: int):
+    global newsletters_db
+    newsletters_db = [c for c in newsletters_db if c.id != newsletter_id]
+    return {"message": "Newsletter deleted successfully"}
 
 
-@app.get("/campaigns/stats")
-async def get_campaigns_stats_endpoint():
-    return await get_campaigns_stats()
+@app.get("/newsletters/stats")
+async def get_newsletters_stats_endpoint():
+    return await get_newsletters_stats()
 
 
-@app.get("/campaigns/{campaign_id}/stats")
-async def get_campaign_stats_endpoint(campaign_id: int):
-    return await get_campaign_stats(campaign_id)
+@app.get("/newsletters/{newsletter_id}/stats")
+async def get_newsletter_stats_endpoint(newsletter_id: int):
+    return await get_newsletter_stats(newsletter_id)
 
 
 @app.get("/get_clients/")
@@ -82,9 +83,9 @@ async def get_clients():
     return clients_db
 
 
-@app.get("/get_camp/")
-async def get_camp():
-    return campaigns_db
+@app.get("/get_newsletters/")
+async def get_newsletters():
+    return newsletters_db
 
 
 @app.get("/get_messages/")

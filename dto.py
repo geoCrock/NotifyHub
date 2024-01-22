@@ -14,11 +14,11 @@ class Message(BaseModel):
     id: int
     created_at: datetime
     status: str
-    campaign_id: int
+    newsletter_id: int
     client_id: int
 
 
-class Campaign(BaseModel):
+class Newsletter(BaseModel):
     id: int
     start_time: datetime
     message_text: str
@@ -29,4 +29,4 @@ class Campaign(BaseModel):
 # Для примера используем простые списки вместо базы данных
 clients_db = []
 messages_db = []
-campaigns_db = []
+newsletters_db = []

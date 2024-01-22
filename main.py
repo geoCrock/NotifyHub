@@ -1,4 +1,4 @@
-import asyncio
+# import asyncio
 import uvicorn
 # from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
@@ -92,8 +92,8 @@ async def create_client(client: Client):
 async def update_client(client_id: int, updated_client: Client):
     client = next((c for c in clients_db if c.id == client_id), None)
     if client:
-        client_dict = client.dict()
-        client_dict.update(updated_client.dict())
+        client_dict = client.model_dump()
+        client_dict.update(updated_client.model_dump())
         return {"message": "Client updated successfully"}
     else:
         raise HTTPException(status_code=404, detail="Client not found")
@@ -117,8 +117,8 @@ async def create_campaign(campaign: Campaign):
 async def update_campaign(campaign_id: int, updated_campaign: Campaign):
     campaign = next((c for c in campaigns_db if c.id == campaign_id), None)
     if campaign:
-        campaign_dict = campaign.dict()
-        campaign_dict.update(updated_campaign.dict())
+        campaign_dict = campaign.model_dump()
+        campaign_dict.update(updated_campaign.model_dump())
         return {"message": "Campaign updated successfully"}
     else:
         raise HTTPException(status_code=404, detail="Campaign not found")

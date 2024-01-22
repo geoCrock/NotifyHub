@@ -13,7 +13,7 @@ async def process_campaign(campaign: Campaign):
     # Логика обработки рассылки
     # current_time = datetime.now()
     # if campaign.start_time <= current_time <= campaign.end_time:
-    clients_to_notify = [client for client in clients_db if all(client[key] == value for key, value in campaign.client_filter.items())]
+    clients_to_notify = [client for client in clients_db if client.tag == campaign.tag_filter]
     for client in clients_to_notify:
         await send_message(client.id, campaign.id)
 

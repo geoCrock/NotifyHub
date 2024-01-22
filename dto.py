@@ -22,7 +22,7 @@ class Campaign(BaseModel):
     id: int
     start_time: datetime
     message_text: str
-    client_filter: dict
+    tag_filter: str
     end_time: datetime
 
 

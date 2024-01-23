@@ -4,8 +4,11 @@ from dto import *
 
 
 async def send_message(client_id: int, newsletter_id: int):
-    messages_db.append(Message(id=len(messages_db) + 1, created_at=datetime.now(), status="Sent", newsletter_id=newsletter_id, client_id=client_id))
-
+    try:
+        messages_db.append(Message(id=len(messages_db) + 1, created_at=datetime.now(), status="Sent", newsletter_id=newsletter_id, client_id=client_id))
+    except Exception as e:
+        print(f"Erorr: {e}")
+        return f'Erorr: {e}'
 
 async def process_newsletter(newsletter: Newsletter):
     while datetime.now(pytz.timezone('UTC')) < newsletter.start_time:

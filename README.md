@@ -36,9 +36,18 @@
 git clone https://github.com/geoCrock/NotifyHub.git
 ```
 
-2. Перейти в корень проекта   
+2. Перейти в корень проекта (создать venv если это необходимо)  
 ```bash
 cd NotifyHub
+```
+
+```bash
+python -m venv venv
+```
+или
+
+```bash
+source venv/bin/activate
 ```
 
 3. Установить зависимости

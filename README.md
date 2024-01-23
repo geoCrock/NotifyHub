@@ -22,9 +22,9 @@
 ## Запуск локально
 
 1. Скачать проект
-```bash
-https://github.com/geoCrock/NotifyHub.git
-```
+  ```bash
+  https://github.com/geoCrock/NotifyHub.git
+  ```
 
 2. Перейти в корень проекта
 ```bash

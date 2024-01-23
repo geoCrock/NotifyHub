@@ -26,7 +26,6 @@ class Newsletter(BaseModel):
     end_time: datetime
 
 
-# Для примера используем простые списки вместо базы данных
 clients_db = []
 messages_db = []
 newsletters_db = []

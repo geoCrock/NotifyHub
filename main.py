@@ -1,16 +1,9 @@
-# import asyncio
 import uvicorn
-# from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException
 from dto import *
 from statistic import get_newsletter_stats, get_newsletters_stats
 from send_messages import process_active_newsletters
 
-
-# @asynccontextmanager
-# async def lifespan(app: FastAPI):
-#     await process_active_newsletters()
-#     yield
 
 app = FastAPI()
 
@@ -25,7 +18,6 @@ async def create_client(client: Client):
 async def update_client(client_id: int, updated_client: Client):
     for client in clients_db:
         if client.id == client_id:
-            # Обновляем атрибуты клиента
             client.phone_number = updated_client.phone_number
             client.operator_code = updated_client.operator_code
             client.tag = updated_client.tag
@@ -52,7 +44,6 @@ async def create_newsletter(newsletter: Newsletter):
 async def update_newsletter(newsletter_id: int, updated_newsletter: Newsletter):
     for newsletter in newsletters_db:
         if newsletter.id == newsletter_id:
-            # Обновляем атрибуты рассылки
             newsletter.start_time = updated_newsletter.start_time
             newsletter.message_text = updated_newsletter.message_text
             newsletter.tag_filter = updated_newsletter.tag_filter
@@ -76,21 +67,6 @@ async def get_newsletters_stats_endpoint():
 @app.get("/newsletters/{newsletter_id}/stats")
 async def get_newsletter_stats_endpoint(newsletter_id: int):
     return await get_newsletter_stats(newsletter_id)
-
-
-@app.get("/get_clients/")
-async def get_clients():
-    return clients_db
-
-
-@app.get("/get_newsletters/")
-async def get_newsletters():
-    return newsletters_db
-
-
-@app.get("/get_messages/")
-async def get_messages():
-    return messages_db
 
 
 if __name__ == "__main__":

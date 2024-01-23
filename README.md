@@ -22,24 +22,29 @@
 ## Запуск локально
 
 1. Скачать проект
-  ```bash
-  https://github.com/geoCrock/NotifyHub.git
-  ```
+
+```bash
+https://github.com/geoCrock/NotifyHub.git
+```
 
 2. Перейти в корень проекта
+   
 ```bash
 cd NotifyHub
 ```
 
 3. Установить зависимости
+   
 ```bash
 pip install -r requirements.txt
 ```
 
 4. Запустить главный файл `main.py` для запуска проекта
+   
 ```bash
 main.py
 ```
+
 5. Проект доступен по адресу: 127.0.0.1:8000
 
 ## Запуск через Docker

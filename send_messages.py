@@ -1,3 +1,5 @@
+import asyncio
+import pytz
 from dto import *
 
 
@@ -11,8 +13,14 @@ async def send_message(client_id: int, newsletter_id: int):
 async def process_newsletter(newsletter: Newsletter):
     print('process campaing')
     # Логика обработки рассылки
-    # current_time = datetime.now()
-    # if newsletter.start_time <= current_time <= newsletter.end_time:
+    while datetime.now(pytz.timezone('UTC')) < newsletter.start_time:
+        print(datetime.now(pytz.timezone('UTC')))
+        print(datetime.now(pytz.timezone('UTC')) < newsletter.start_time)
+        await asyncio.sleep(1)
+
+    if datetime.now(pytz.timezone('UTC')) > newsletter.end_time:
+        return 'Time end!'
+
     clients_to_notify = [client for client in clients_db if client.tag == newsletter.tag_filter]
     for client in clients_to_notify:
         await send_message(client.id, newsletter.id)

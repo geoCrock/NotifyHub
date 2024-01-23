@@ -24,9 +24,6 @@ local_settings.py
 .idea/
 .vscode/
 
-# Compiled Python files
-*.pyc
-
 # Compiled C extension
 *.so
 

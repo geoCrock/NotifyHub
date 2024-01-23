@@ -41,7 +41,7 @@ pip install -r requirements.txt
 main.py
 ```
 
-5. Проект доступен по адресу: 127.0.0.1:8000
+5. Проект доступен по адресу: http://127.0.0.1:8000
    
 
 ## Запуск через Docker
@@ -55,5 +55,5 @@ https://github.com/geoCrock/NotifyHub.git
 ```bash
 docker-compose up --build
 ```
-3. Проект доступен по адресу: 127.0.0.1:8000
+3. Проект доступен по адресу: http://127.0.0.1:8000
 

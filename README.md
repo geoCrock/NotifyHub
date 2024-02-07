@@ -1,11 +1,10 @@
 # NotifyHub
 
-Test task for the company "Solution Factory"
-
-## Functionality
-
 Welcome to NotifyHub, a powerful tool for managing and tracking messaging to your customers.
 This project provides a flexible and convenient interface for creating, managing and monitoring mailings, as well as interacting with an external message sending service.
+
+
+## Functionality
 
 - Creating, updating and deleting clients
 - Managing mailings with filters

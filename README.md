@@ -1,42 +1,32 @@
-# NotifyHub
+#NotifyHub
 
-Тестовое задание для компании "Фабрика решений"
+Test task for the company "Solution Factory"
 
-Из дополнительных задач сделанно:
+## Functionality
 
-- Cтраница со Swagger UI благодоря встроенной возможности FastAPI
-- Docker-compose для запуска всех сервисов проекта одной командой
+Welcome to NotifyHub, a powerful tool for managing and tracking messaging to your customers.
+This project provides a flexible and convenient interface for creating, managing and monitoring mailings, as well as interacting with an external message sending service.
 
-Комментарии:
-1. Здесь нет никакой БД и брокеров сообщений (всё сделанно через переменные), в реальной разработке без них никак
-2. Внешнее API для помощи я не использовал
-3. Если рассылка должна быть в будущем, то необходимо подождать до это времени для выпонения отпраки сообщения
-
-## Функциональность
-
-Приветствуем вас в NotifyHub – мощном инструменте для управления и отслеживания рассылок сообщений вашим клиентам. 
-Этот проект предоставляет гибкий и удобный интерфейс для создания, управления и мониторинга рассылок, а также взаимодействия с внешним сервисом отправки сообщений.
-
-- Создание, обновление и удаление клиентов
-- Управление рассылками с указанием фильтров
-- Получение общей и детальной статистики рассылок
-- Асинхронная отправка сообщений с сбором статистики
-- Обработка ошибок внешнего сервиса без влияния на стабильность работы
+- Creating, updating and deleting clients
+- Managing mailings with filters
+- Obtaining general and detailed statistics of mailings
+- Asynchronous sending of messages with statistics collection
+- Handling external service errors without affecting stability
 
 
-## Требования
+## Requirements
 
-- Python 3.8 или выше (Желательно Python 3.11)
-- Docker, Docker-Compose (для запуска в контейнере)
+- Python 3.8 or higher (Python 3.11 is preferred)
+- Docker, Docker-Compose (to run in a container)
 
-## Запуск локально
+## Run locally
 
-1. Скачать проект
+1. Download the project
 ```bash
 git clone https://github.com/geoCrock/NotifyHub.git
 ```
 
-2. Перейти в корень проекта (создать venv если это необходимо)  
+2. Go to the root of the project (create venv if necessary)
 ```bash
 cd NotifyHub
 ```
@@ -44,39 +34,39 @@ cd NotifyHub
 ```bash
 python -m venv venv
 ```
-или
+or
 
 ```bash
 source venv/bin/activate
 ```
 
-3. Установить зависимости
+3. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-4. Запустить главный файл `main.py` для запуска проекта
+4. Run the main file `main.py` to start the project
 ```bash
 main.py
 ```
 
-Проект доступен по адресу: http://127.0.0.1:8000
+The project is available at: http://127.0.0.1:8000
    
 
-## Запуск через Docker
+## Running via Docker
 
-1. Скачать проект
- ```bash
+1. Download the project
+  ```bash
 git clone https://github.com/geoCrock/NotifyHub.git
 ```
 
-2. Перейти в корень проекта   
+2. Go to the project root
 ```bash
 cd NotifyHub
 ```
 
-3. Запустить контейнер
+3. Launch the container
 ```bash
 docker-compose up --build
 ```
-Проект доступен по адресу: http://127.0.0.1:8000
+The project is available at: http://127.0.0.1:8000
